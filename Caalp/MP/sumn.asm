@@ -1,0 +1,41 @@
+ASSUME CS:CODE,DS:DATA
+DATA SEGMENT
+SUM DB 0
+NL1 DB 10,"Enter n value:$"
+NL2 DB 10,"Enter number:$"
+NL3 DB 10,"Sum:$"
+DATA ENDS
+CODE SEGMENT
+START:
+    MOV AX,DATA
+    MOV DS,AX
+    LEA DX,NL1
+    MOV AH,09H
+    INT 21H
+    MOV AH,01H
+    INT 21H
+    SUB AL,30H
+    MOV CL,AL
+    MOV SUM,0
+LBL1:
+    LEA DX,NL2
+    MOV AH,09H
+    INT 21H
+    MOV AH,01H
+    INT 21H
+    SUB AL,30H
+    ADD SUM,AL
+    LOOP LBL1
+    LEA DX, NL3
+    MOV AH,09H
+    INT 21H
+    MOV AL,SUM
+    ADD AL,30H
+    MOV DL,AL
+    MOV AH,02H
+    INT 21H
+    MOV AH, 4CH
+    INT 21H
+CODE ENDS
+END START   
+
